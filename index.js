@@ -5,17 +5,20 @@ const tileTemplate = document.querySelector('#tile-template')
 
 document.body.style.setProperty('--grid-size', GRID_SIZE)
 
-const grid = generateGrid()
-grid.forEach((row) => {
-  row.forEach((tile) => {
-    const tileElement = tileTemplate.content
-      .cloneNode(true)
-      .querySelector('.tile')
-    tileElement.dataset.x = tile.x
-    tileElement.dataset.y = tile.y
-    gridElement.append(tileElement)
+let grid = generateGrid()
+function createGrid() {
+  grid.forEach((row) => {
+    row.forEach((tile) => {
+      const tileElement = tileTemplate.content
+        .cloneNode(true)
+        .querySelector('.tile')
+      tileElement.dataset.x = tile.x
+      tileElement.dataset.y = tile.y
+      gridElement.append(tileElement)
+    })
   })
-})
+}
+createGrid()
 
 gridElement.onclick = (event) => {
   if (!isCoveredTile(event.target)) return
@@ -39,6 +42,10 @@ function isCoveredTile(tileElement) {
 
 function uncoverTiles(tiles) {
   tiles.forEach((tile) => {
+    if (tile.mine) {
+      gameOver()
+      return
+    }
     const tileElement = document.querySelector(
       `[data-y="${tile.y}"][data-x="${tile.x}"]`
     )
@@ -47,4 +54,10 @@ function uncoverTiles(tiles) {
     if (tile.mine) tileElement.dataset.mine = true
     if (tile.value > 0 && !tile.mine) tileElement.textContent = tile.value
   })
+}
+
+function gameOver() {
+  gridElement.textContent = ''
+  grid = generateGrid()
+  createGrid()
 }
