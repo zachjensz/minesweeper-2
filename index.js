@@ -43,6 +43,7 @@ function uncoverTiles(tiles) {
       `[data-y="${tile.y}"][data-x="${tile.x}"]`
     )
     tileElement.dataset.uncovered = true
+    tileElement.dataset.value = tile.value
     if (tile.mine) tileElement.dataset.mine = true
     if (tile.value > 0 && !tile.mine) tileElement.textContent = tile.value
   })

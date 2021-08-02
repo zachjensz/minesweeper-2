@@ -17,6 +17,15 @@
   --tileMarkedLightness: 50%;
   --tileMarkedHoverLightness: 70%;
   --tileActiveLightness: 50%;
+
+  --v1: dodgerblue;
+  --v2: lime;
+  --v3: gold;
+  --v4: crimson;
+  --v5: darkorange;
+  --v6: magenta;
+  --v7: deeppink;
+  --v8: wheat;
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -65,15 +74,6 @@ body {
   --hue: var(--tileHue);
   --saturation: var(--tileSaturation);
   --lightness: var(--tileLightness);
-  color: var(--mainText);
-  font-size: calc(60vmin / var(--grid-size));
-  display: grid;
-  place-content: center;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 150ms ease-out;
 }
 .tile[data-uncovered] {
   --lightness: var(--tileUncoveredLightness);
@@ -106,4 +106,47 @@ body {
 
 .tile {
   background-color: hsl(var(--hue), var(--saturation), var(--lightness));
+  color: var(--mainText);
+  font-size: calc(60vmin / var(--grid-size));
+  display: grid;
+  place-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 150ms ease-out;
+}
+
+.tile[data-mine]::before {
+  color: var(--background);
+  content: '#';
+}
+.tile[data-flagged]::before {
+  color: var(--background);
+  content: '?';
+}
+
+.tile[data-value='1'] {
+  color: var(--v1);
+}
+.tile[data-value='2'] {
+  color: var(--v2);
+}
+.tile[data-value='3'] {
+  color: var(--v3);
+}
+.tile[data-value='4'] {
+  color: var(--v4);
+}
+.tile[data-value='5'] {
+  color: var(--v5);
+}
+.tile[data-value='6'] {
+  color: var(--v6);
+}
+.tile[data-value='7'] {
+  color: var(--v7);
+}
+.tile[data-value='8'] {
+  color: var(--v8);
 }
