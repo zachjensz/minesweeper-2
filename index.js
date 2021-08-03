@@ -1,5 +1,6 @@
 import { GRID_SIZE, generateGrid, revealTile } from './logic.js'
 
+let gameInteractable = false
 const gridElement = document.querySelector('#grid')
 const tileTemplate = document.querySelector('#tile-template')
 
@@ -17,10 +18,12 @@ function createGrid() {
       gridElement.append(tileElement)
     })
   })
+  gameInteractable = true
 }
 createGrid()
 
 gridElement.onclick = (event) => {
+  if (!gameInteractable) resetLevel()
   if (!isCoveredTile(event.target)) return
   if (event.target.dataset.flagged) return
   uncoverTiles(
@@ -57,6 +60,18 @@ function uncoverTiles(tiles) {
 }
 
 function gameOver() {
+  gameInteractable = false
+  grid.forEach((row) => {
+    row.forEach((tile) => {
+      if (tile.mine)
+        document.querySelector(
+          `[data-y="${tile.y}"][data-x="${tile.x}"]`
+        ).dataset.mine = true
+    })
+  })
+}
+
+function resetLevel() {
   gridElement.textContent = ''
   grid = generateGrid()
   createGrid()
