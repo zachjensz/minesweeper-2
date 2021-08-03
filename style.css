@@ -57,14 +57,18 @@ body {
   background-color: var(--background);
   color: var(--mainText);
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   place-content: center;
   text-align: center;
 }
+header {
+  margin: 1em;
+}
 #grid {
-  width: 90vmin;
-  height: 90vmin;
+  width: 80vmin;
+  height: 80vmin;
+  margin: 1em;
   display: grid;
   grid-template-columns: repeat(var(--grid-size), 1fr);
   grid-template-rows: repeat(var(--grid-size), 1fr);
